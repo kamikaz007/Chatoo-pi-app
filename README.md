@@ -45,7 +45,6 @@ npm start
 ### Required Information:
 - **App Name:** Chatoo
 - **App ID:** Chatoo
-- **API Key:** hrsvsmn2ozp0ahcr4v56hivkupdlpovnbavbo7ytb7wsnbyo50dpi77ekh68jggg
 - **Production URL:** https://chatoo-frontend.onrender.com (update this)
 - **PiNet Subdomain:** chatoo3373
 - **Service Price:** 0.10 Pi
