@@ -10,6 +10,9 @@ const PORT = process.env.PORT || 3000;
 const PI_API_KEY = 'hrsvsmn2ozp0ahcr4v56hivkupdlpovnbavbo7ytb7wsnbyo50dpi77ekh68jggg';
 const PI_API_URL = 'https://api.minepi.com';
 
+// Pi Network Validation Key - الكامل
+const VALIDATION_KEY = '6de679e360ee0316d9bda8f37a92404118dfffcbd88bc6dad11a5099cd631d10fa6f4e0f4093fa243f141276295f7a21cdcab2944d6ee94e3389ab75c2cfa17d';
+
 app.use(cors());
 app.use(express.json());
 app.use(express.static('public'));
@@ -17,6 +20,18 @@ app.use(express.static('public'));
 // الصفحة الرئيسية
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/chatoo-pi-app.html');
+});
+
+// مسار التحقق من Domain لـ Pi Network - مهم جداً!
+app.get('/validation-key.txt', (req, res) => {
+    res.type('text/plain');
+    res.send(VALIDATION_KEY);
+});
+
+// مسار بديل للتحقق
+app.get('/.well-known/pi-network/validation-key.txt', (req, res) => {
+    res.type('text/plain');
+    res.send(VALIDATION_KEY);
 });
 
 // الموافقة على الدفع (Server Approval)
@@ -142,7 +157,8 @@ app.get('/test', (req, res) => {
     res.json({
         status: 'Server is running',
         app: 'Chatoo Pi Network Integration',
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
+        validationKey: VALIDATION_KEY
     });
 });
 
@@ -150,6 +166,8 @@ app.listen(PORT, () => {
     console.log(`✅ خادم Chatoo يعمل على المنفذ ${PORT}`);
     console.log(`🌐 الوصول: http://localhost:${PORT}`);
     console.log(`🔑 API Key: ${PI_API_KEY.substring(0, 10)}...`);
+    console.log(`✅ Validation Key: ${VALIDATION_KEY.substring(0, 20)}...`);
+    console.log(`📝 Validation URL: http://localhost:${PORT}/validation-key.txt`);
 });
 
 module.exports = app;
