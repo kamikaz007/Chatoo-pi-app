@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chatoo - منصة التواصل الاجتماعي والخدمات</title>
-    <script src="https://sdk.minepi.com/pi-sdk.js"></script>
+    <title>Chatoo - اختبار Backend</title>
     <style>
         * {
             margin: 0;
@@ -32,126 +31,26 @@
             text-align: center;
         }
 
-        .logo {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 50%;
-            margin: 0 auto 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 40px;
-            color: white;
-            font-weight: bold;
-        }
-
         h1 {
             color: #333;
-            margin-bottom: 10px;
-            font-size: 32px;
-        }
-
-        .subtitle {
-            color: #666;
-            margin-bottom: 30px;
-            font-size: 16px;
-        }
-
-        .user-info {
-            background: #f8f9fa;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 30px;
-            text-align: right;
-            display: none;
-        }
-
-        .user-info p {
-            margin: 10px 0;
-            color: #555;
-            font-size: 14px;
-        }
-
-        .user-info strong {
-            color: #333;
-            font-weight: 600;
-        }
-
-        .service-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border-radius: 15px;
-            padding: 30px;
-            margin-bottom: 30px;
-        }
-
-        .service-card h2 {
-            font-size: 24px;
-            margin-bottom: 15px;
-        }
-
-        .price {
-            font-size: 48px;
-            font-weight: bold;
-            margin: 20px 0;
-        }
-
-        .price-symbol {
-            font-size: 24px;
-            opacity: 0.9;
-        }
-
-        .service-description {
-            opacity: 0.95;
-            line-height: 1.6;
             margin-bottom: 20px;
         }
 
-        .features {
-            text-align: right;
-            margin: 20px 0;
-        }
-
-        .features li {
-            list-style: none;
-            padding: 8px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .features li:before {
-            content: "✓ ";
-            margin-left: 10px;
-            font-weight: bold;
-        }
-
         .btn {
-            background: white;
-            color: #667eea;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
             border: none;
             padding: 18px 50px;
             font-size: 18px;
             font-weight: bold;
             border-radius: 50px;
             cursor: pointer;
-            transition: all 0.3s ease;
             width: 100%;
             margin: 10px 0;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
-        .btn:hover:not(:disabled) {
+        .btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .btn:active:not(:disabled) {
-            transform: translateY(0);
-        }
-
-        .btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
         }
 
         .status {
@@ -159,389 +58,97 @@
             border-radius: 10px;
             margin: 20px 0;
             font-size: 14px;
-            font-weight: 600;
             display: none;
         }
 
         .status.success {
             background: #d4edda;
             color: #155724;
-            border: 1px solid #c3e6cb;
         }
 
         .status.error {
             background: #f8d7da;
             color: #721c24;
-            border: 1px solid #f5c6cb;
         }
 
-        .status.info {
-            background: #d1ecf1;
-            color: #0c5460;
-            border: 1px solid #bee5eb;
-        }
-
-        .loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top-color: white;
-            animation: spin 1s ease-in-out infinite;
-            margin-left: 10px;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .transaction-id {
+        .result {
             background: #f8f9fa;
             padding: 15px;
             border-radius: 8px;
             margin: 15px 0;
-            word-break: break-all;
-            font-family: monospace;
-            font-size: 12px;
-            color: #333;
-        }
-
-        .footer {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-            color: #999;
-            font-size: 12px;
-        }
-
-        .pi-logo {
-            color: #FFC107;
-            font-weight: bold;
-            font-size: 20px;
-        }
-
-        .debug-info {
-            background: #f8f9fa;
-            border: 1px solid #dee2e6;
-            border-radius: 8px;
-            padding: 15px;
-            margin: 20px 0;
             text-align: left;
-            font-size: 12px;
-            color: #333;
             font-family: monospace;
+            font-size: 12px;
+            word-break: break-all;
             display: none;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="logo">C</div>
-        <h1>Chatoo</h1>
-        <p class="subtitle">منصة التواصل الاجتماعي والخدمات</p>
-
-        <div class="user-info" id="userInfo">
-            <p><strong>اسم المستخدم:</strong> <span id="username">جاري التحميل...</span></p>
-            <p><strong>معرف المستخدم:</strong> <span id="userId">جاري التحميل...</span></p>
-        </div>
-
-        <div class="service-card">
-            <h2>🌟 خدمة مميزة</h2>
-            <div class="price">
-                <span class="price-symbol">π</span> 0.10
-            </div>
-            <p class="service-description">احصل على وصول كامل لجميع مميزات المنصة</p>
-            
-            <ul class="features">
-                <li>وصول غير محدود لجميع الخدمات</li>
-                <li>دعم فني على مدار الساعة</li>
-                <li>مميزات حصرية للأعضاء</li>
-                <li>أولوية في الخدمة</li>
-            </ul>
-        </div>
-
-        <button class="btn" id="payBtn" onclick="initiatePayment()">
-            شراء الخدمة الآن
-        </button>
-
-        <button class="btn" id="verifyBtn" onclick="verifyPayment()" style="display: none; background: #28a745; color: white;">
-            التحقق من الدفع
-        </button>
-
-        <div id="statusMessage" class="status"></div>
-
-        <div class="debug-info" id="debugInfo"></div>
-
-        <div class="footer">
-            <p>مدعوم بواسطة <span class="pi-logo">Pi Network</span></p>
-            <p>Chatoo © 2024</p>
-        </div>
+        <h1>🧪 اختبار Backend</h1>
+        
+        <button class="btn" onclick="testBackend()">اختبار الاتصال بـ Backend</button>
+        
+        <button class="btn" onclick="testValidation()">اختبار Validation Key</button>
+        
+        <div id="status" class="status"></div>
+        <div id="result" class="result"></div>
     </div>
 
     <script>
-        // إعدادات التطبيق
-        const CONFIG = {
-            apiKey: 'hrsvsmn2ozp0ahcr4v56hivkupdlpovnbavbo7ytb7wsnbyo50dpi77ekh68jggg',
-            appId: 'Chatoo',
-            servicePrice: 0.10,
-            serviceName: 'خدمة Chatoo المميزة'
-        };
-
-        let currentUser = null;
-        let currentPayment = null;
-        let piInitialized = false;
-
-        // دالة Debug للمساعدة في التشخيص
-        function debugLog(message, data = null) {
-            console.log('[Chatoo Debug]', message, data || '');
-            const debugDiv = document.getElementById('debugInfo');
-            const timestamp = new Date().toLocaleTimeString('ar');
-            let logEntry = `[${timestamp}] ${message}`;
-            if (data) {
-                logEntry += ': ' + JSON.stringify(data, null, 2);
-            }
-            debugDiv.innerHTML += logEntry + '<br>';
-            // debugDiv.style.display = 'block'; // للتشخيص فقط
-        }
-
-        // تهيئة Pi SDK
-        async function initializePi() {
-            debugLog('بدء تهيئة Pi SDK...');
-            
-            const payBtn = document.getElementById('payBtn');
-            
-            try {
-                // التحقق من توفر Pi SDK
-                if (typeof Pi === 'undefined') {
-                    debugLog('خطأ: Pi SDK غير متوفر');
-                    showStatus('⚠️ يجب فتح التطبيق من Pi Browser فقط!', 'error');
-                    payBtn.disabled = true;
-                    payBtn.textContent = 'افتح من Pi Browser';
-                    return;
-                }
-
-                debugLog('Pi SDK موجود، جاري التهيئة...');
-
-                await Pi.init({ 
-                    version: "2.0",
-                    sandbox: true
-                });
-                
-                piInitialized = true;
-                debugLog('تمت تهيئة Pi SDK بنجاح');
-                
-                showStatus('✅ تم الاتصال بـ Pi Network بنجاح', 'success');
-                
-                // الحصول على معلومات المستخدم
-                await authenticateUser();
-                
-            } catch (error) {
-                debugLog('خطأ في التهيئة', error);
-                console.error('خطأ في التهيئة:', error);
-                showStatus('❌ فشل الاتصال بـ Pi Network: ' + error.message, 'error');
-                payBtn.disabled = true;
-            }
-        }
-
-        // التحقق من المستخدم
-        async function authenticateUser() {
-            debugLog('بدء المصادقة...');
-            
-            try {
-                if (!piInitialized) {
-                    debugLog('Pi SDK غير مهيأ');
-                    throw new Error('Pi SDK غير مهيأ');
-                }
-
-                const scopes = ['username', 'payments'];
-                debugLog('طلب المصادقة مع scopes', scopes);
-                
-                const authResult = await Pi.authenticate(scopes, onIncompletePaymentFound);
-                debugLog('نتيجة المصادقة', authResult);
-                
-                currentUser = authResult.user;
-                
-                if (currentUser) {
-                    document.getElementById('username').textContent = currentUser.username || 'مستخدم Pi';
-                    document.getElementById('userId').textContent = currentUser.uid || 'N/A';
-                    document.getElementById('userInfo').style.display = 'block';
-                    
-                    showStatus('مرحباً ' + (currentUser.username || 'بك') + '! يمكنك الآن إجراء المعاملة 🎉', 'info');
-                    
-                    // تفعيل الزر
-                    document.getElementById('payBtn').disabled = false;
-                    debugLog('تم تفعيل زر الدفع');
-                } else {
-                    throw new Error('لم يتم الحصول على بيانات المستخدم');
-                }
-                
-            } catch (error) {
-                debugLog('خطأ في المصادقة', error);
-                console.error('خطأ في المصادقة:', error);
-                showStatus('❌ فشلت المصادقة. يرجى إعادة تحميل الصفحة', 'error');
-                document.getElementById('payBtn').disabled = true;
-            }
-        }
-
-        // معالجة المدفوعات غير المكتملة
-        function onIncompletePaymentFound(payment) {
-            debugLog('معاملة غير مكتملة', payment);
-            console.log('معاملة غير مكتملة:', payment);
-            currentPayment = payment;
-            showStatus('تم العثور على معاملة غير مكتملة. يرجى إكمالها.', 'info');
-            document.getElementById('verifyBtn').style.display = 'block';
-        }
-
-        // بدء عملية الدفع
-        async function initiatePayment() {
-            debugLog('محاولة بدء الدفع...');
-            
-            const payBtn = document.getElementById('payBtn');
-            
-            if (!piInitialized) {
-                debugLog('Pi SDK غير مهيأ');
-                showStatus('❌ Pi SDK غير جاهز. يرجى إعادة تحميل الصفحة', 'error');
-                return;
-            }
-
-            if (!currentUser) {
-                debugLog('المستخدم غير مسجل دخول');
-                showStatus('❌ يرجى الانتظار حتى يتم التحقق من حسابك', 'error');
-                return;
-            }
-
-            try {
-                payBtn.disabled = true;
-                payBtn.innerHTML = 'جاري معالجة الدفع... <span class="loading"></span>';
-                
-                showStatus('جاري إنشاء المعاملة...', 'info');
-                debugLog('إنشاء بيانات الدفع...');
-
-                // إنشاء معاملة الدفع
-                const paymentData = {
-                    amount: CONFIG.servicePrice,
-                    memo: CONFIG.serviceName,
-                    metadata: { 
-                        service: 'premium',
-                        appId: CONFIG.appId,
-                        userId: currentUser.uid,
-                        timestamp: new Date().toISOString()
-                    }
-                };
-
-                debugLog('بيانات الدفع', paymentData);
-
-                const payment = await Pi.createPayment(paymentData, {
-                    onReadyForServerApproval: function(paymentId) {
-                        debugLog('جاهز للموافقة', paymentId);
-                        console.log('جاهز للموافقة من الخادم:', paymentId);
-                        showStatus('المعاملة جاهزة للموافقة. معرف: ' + paymentId, 'info');
-                    },
-                    onReadyForServerCompletion: function(paymentId, txid) {
-                        debugLog('جاهز للإكمال', {paymentId, txid});
-                        console.log('جاهز للإكمال من الخادم:', paymentId, txid);
-                        showStatus('المعاملة جاهزة للإكمال', 'info');
-                    },
-                    onCancel: function(paymentId) {
-                        debugLog('تم إلغاء المعاملة', paymentId);
-                        console.log('تم إلغاء المعاملة:', paymentId);
-                        showStatus('❌ تم إلغاء المعاملة', 'error');
-                        payBtn.disabled = false;
-                        payBtn.innerHTML = 'شراء الخدمة الآن';
-                    },
-                    onError: function(error, payment) {
-                        debugLog('خطأ في المعاملة', {error, payment});
-                        console.error('خطأ في المعاملة:', error);
-                        showStatus('❌ خطأ في المعاملة: ' + error.message, 'error');
-                        payBtn.disabled = false;
-                        payBtn.innerHTML = 'شراء الخدمة الآن';
-                    }
-                });
-
-                currentPayment = payment;
-                debugLog('تم إنشاء المعاملة', payment);
-                
-                if (payment && payment.identifier) {
-                    showStatus('✅ تم إنشاء المعاملة بنجاح!', 'success');
-                    displayTransactionId(payment.identifier);
-                    
-                    document.getElementById('verifyBtn').style.display = 'block';
-                    payBtn.innerHTML = 'إنشاء معاملة جديدة';
-                    payBtn.disabled = false;
-                }
-
-            } catch (error) {
-                debugLog('خطأ في عملية الدفع', error);
-                console.error('خطأ في عملية الدفع:', error);
-                showStatus('❌ فشلت عملية الدفع: ' + error.message, 'error');
-                payBtn.disabled = false;
-                payBtn.innerHTML = 'شراء الخدمة الآن';
-            }
-        }
-
-        // التحقق من الدفع
-        async function verifyPayment() {
-            const verifyBtn = document.getElementById('verifyBtn');
-            
-            if (!currentPayment) {
-                showStatus('❌ لا توجد معاملة للتحقق منها', 'error');
-                return;
-            }
-
-            try {
-                verifyBtn.disabled = true;
-                verifyBtn.innerHTML = 'جاري التحقق... <span class="loading"></span>';
-                
-                showStatus('جاري التحقق من المعاملة...', 'info');
-                debugLog('التحقق من الدفع', currentPayment);
-
-                // محاكاة التحقق
-                setTimeout(() => {
-                    showStatus('✅ تم التحقق من الدفع بنجاح! شكراً لك', 'success');
-                    verifyBtn.style.display = 'none';
-                    
-                    document.getElementById('payBtn').disabled = false;
-                    document.getElementById('payBtn').innerHTML = 'شراء الخدمة الآن';
-                    
-                    debugLog('اكتمل التحقق بنجاح');
-                }, 2000);
-
-            } catch (error) {
-                debugLog('خطأ في التحقق', error);
-                console.error('خطأ في التحقق:', error);
-                showStatus('❌ فشل التحقق: ' + error.message, 'error');
-                verifyBtn.disabled = false;
-                verifyBtn.innerHTML = 'التحقق من الدفع';
-            }
-        }
-
-        // عرض رسالة الحالة
         function showStatus(message, type) {
-            const statusDiv = document.getElementById('statusMessage');
+            const statusDiv = document.getElementById('status');
             statusDiv.className = 'status ' + type;
             statusDiv.textContent = message;
             statusDiv.style.display = 'block';
         }
 
-        // عرض معرف المعاملة
-        function displayTransactionId(txId) {
-            const statusDiv = document.getElementById('statusMessage');
-            const txDisplay = document.createElement('div');
-            txDisplay.className = 'transaction-id';
-            txDisplay.innerHTML = '<strong>معرف المعاملة:</strong><br>' + txId;
-            statusDiv.appendChild(txDisplay);
+        function showResult(data) {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<strong>النتيجة:</strong><br>' + JSON.stringify(data, null, 2);
+            resultDiv.style.display = 'block';
         }
 
-        // تهيئة التطبيق عند تحميل الصفحة
-        window.addEventListener('load', function() {
-            debugLog('تحميل الصفحة');
-            showStatus('⏳ يرجى الانتظار حتى يتم التحقق من حسابك...', 'info');
+        async function testBackend() {
+            showStatus('⏳ جاري الاتصال بـ Backend...', 'success');
             
-            // تأخير بسيط للتأكد من تحميل Pi SDK
-            setTimeout(function() {
-                initializePi();
-            }, 500);
+            try {
+                const response = await fetch('/test');
+                const data = await response.json();
+                
+                showStatus('✅ Backend يعمل بنجاح!', 'success');
+                showResult(data);
+                
+            } catch (error) {
+                showStatus('❌ فشل الاتصال: ' + error.message, 'error');
+                showResult({error: error.message});
+            }
+        }
+
+        async function testValidation() {
+            showStatus('⏳ جاري اختبار Validation Key...', 'success');
+            
+            try {
+                const response = await fetch('/validation-key.txt');
+                const data = await response.text();
+                
+                if (data && data.length > 50) {
+                    showStatus('✅ Validation Key يعمل بنجاح!', 'success');
+                    showResult({validationKey: data.substring(0, 50) + '...'});
+                } else {
+                    showStatus('❌ Validation Key غير صحيح', 'error');
+                }
+                
+            } catch (error) {
+                showStatus('❌ فشل الاختبار: ' + error.message, 'error');
+                showResult({error: error.message});
+            }
+        }
+
+        // اختبار تلقائي عند التحميل
+        window.addEventListener('load', function() {
+            setTimeout(testBackend, 1000);
         });
     </script>
 </body>
