@@ -277,6 +277,14 @@
         // تهيئة Pi SDK
         async function initializePi() {
             try {
+                // التحقق من توفر Pi SDK
+                if (typeof Pi === 'undefined') {
+                    console.log('Pi SDK غير متوفر - ربما لست في Pi Browser');
+                    showStatus('يرجى فتح التطبيق من Pi Browser فقط', 'error');
+                    document.getElementById('payBtn').disabled = true;
+                    return;
+                }
+
                 await Pi.init({ 
                     version: "2.0",
                     sandbox: true // تأكد من استخدام وضع الاختبار
@@ -290,12 +298,19 @@
             } catch (error) {
                 console.error('خطأ في التهيئة:', error);
                 showStatus('فشل الاتصال بـ Pi Network: ' + error.message, 'error');
+                document.getElementById('payBtn').disabled = true;
             }
         }
 
         // التحقق من المستخدم
         async function authenticateUser() {
             try {
+                // التحقق من توفر Pi SDK
+                if (typeof Pi === 'undefined' || typeof Pi.authenticate !== 'function') {
+                    showStatus('يرجى فتح التطبيق من Pi Browser', 'error');
+                    return;
+                }
+
                 const scopes = ['username', 'payments'];
                 
                 const authResult = await Pi.authenticate(scopes, onIncompletePaymentFound);
@@ -306,11 +321,21 @@
                 document.getElementById('userId').textContent = currentUser.uid || 'N/A';
                 document.getElementById('userInfo').style.display = 'block';
                 
+                // إخفاء رسالة الانتظار بعد التحقق
+                const waitMessage = document.getElementById('statusMessage');
+                if (waitMessage && waitMessage.textContent.includes('الانتظار')) {
+                    waitMessage.style.display = 'none';
+                }
+                
                 showStatus('مرحباً ' + (currentUser.username || 'بك') + '! يمكنك الآن إجراء المعاملة', 'info');
+                
+                // تفعيل الزر
+                document.getElementById('payBtn').disabled = false;
                 
             } catch (error) {
                 console.error('خطأ في المصادقة:', error);
-                showStatus('فشلت المصادقة: ' + error.message, 'error');
+                showStatus('فشلت المصادقة. يرجى المحاولة مرة أخرى', 'error');
+                document.getElementById('payBtn').disabled = true;
             }
         }
 
