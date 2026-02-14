@@ -7,7 +7,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // إعدادات Pi Network
-const PI_API_KEY = 'hrsvsmn2ozp0ahcr4v56hivkupdlpovnbavbo7ytb7wsnbyo50dpi77ekh68jggg';
+const PI_API_KEY = 'jkxkjwfhbetcoflwxmyudfckg4k8dcx1uqfvpzjske0cs109k3dnfq7amzd3mkcz';
 const PI_API_URL = 'https://api.minepi.com';
 
 // Pi Network Validation Key - الكامل
